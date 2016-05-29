@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Camper Leaderboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.16/browser.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script type="text/babel">
+
+      var Board = React.createClass({
+
+        getInitialState: function() {
+          return {data: [], rank: 'recent'};
+        },
+
+        componentDidMount: function() {
+          this.serverRequest = $.ajax({
+            url: "https://fcctop100.herokuapp.com/api/fccusers/top/" + this.state.rank,
+            dataType: 'json',
+            cache: false,
+            success: function(data) {
+              this.setState({data: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+              console.error(url, status, err.toString());
+            }.bind(this)
+          });
+        },
+
+        componentWillUnmount: function() {
+          this.serverRequest.abort();
+        },
+
+        handleAlltime: function(){
+          this.setState({rank: "alltime"}, this.componentDidMount());
+        },
+
+        handleRecent: function(){
+          this.setState({rank: "recent"}, this.componentDidMount());
+        },
+
+        render: function() {
+          return (
+            <div className="board">
+              <h1>FCC Leaderboard</h1>
+              <div className="top">
+                <span className="top_el">User</span>
+                <span className="top_el top_link" onClick={this.handleRecent}>Recent points</span>
+                <span className="top_el top_link" onClick={this.handleAlltime}>All time points</span>
+              </div>
+              <CamperList data={this.state.data} />
+            </div>
+          );
+        }
+      });
+
+      var CamperList = React.createClass({
+        render: function() {
+          var campers = this.props.data.map(function(camper) {
+            return (
+              <Camper data={camper} />
+            );
+          });
+          return (
+            <div className="camperList">
+              {campers}
+            </div>
+          );
+        }
+      });
+
+      var Camper = React.createClass({
+
+        render: function() {
+          return (
+            <a href={"https://www.freecodecamp.com/" + this.props.data.username} className="camper" target="_blank">
+              <img className="camper_pic" src={this.props.data.img} />
+              <span className="camper_name">{this.props.data.username}</span>
+              <span className="camper_rank">{this.props.data.recent}</span>
+              <span className="camper_rank">{this.props.data.alltime}</span>
+            </a>
+          );
+        }
+      });
+
+      ReactDOM.render(
+        <Board />,
+        document.getElementById('content')
+      ); 
+    </script>
+  </body>
+</html>

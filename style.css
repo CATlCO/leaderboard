@@ -1,0 +1,81 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900);
+* {
+  box-sizing: border-box; }
+
+body {
+  background: linear-gradient(to left, #283048, #859398);
+  font-family: 'Raleway';
+  color: #2A324A; }
+
+.board {
+  max-width: 1000px;
+  margin: 0 auto; }
+
+h1 {
+  background: white;
+  color: black;
+  font-weight: 900;
+  font-size: 50px;
+  text-shadow: 1px 1px 0px white, 1px -1px 0px white, -1px -1px 0px white, -1px 1px 0px white;
+  text-align: center;
+  position: relative;
+  margin-bottom: 30px; }
+  h1::before, h1::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none; }
+  h1::before {
+    background: linear-gradient(to left, #283048, #859398);
+    content: '';
+    display: block;
+    mix-blend-mode: screen; }
+  h1::after {
+    content: 'FCC Leaderboard';
+    background: white;
+    color: white;
+    mix-blend-mode: multiply; }
+
+.top_el {
+  color: white;
+  display: inline-block;
+  width: 33.33%;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 20px;
+  margin-bottom: 30px; }
+.top_link {
+  cursor: pointer; }
+
+.camper {
+  display: block;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  margin-bottom: 50px;
+  position: relative;
+  cursor: pointer;
+  transition: all .3s ease;
+  color: #2A324A; }
+  .camper_pic {
+    width: 100px;
+    border-radius: 50%;
+    position: absolute;
+    left: 20px;
+    top: -20px; }
+  .camper_name, .camper_rank {
+    display: inline-block;
+    width: 33.33%;
+    font-size: 18px;
+    text-align: center; }
+  .camper_name {
+    padding-left: 150px;
+    text-align: left; }
+  .camper:hover {
+    background-color: white; }
+    .camper:hover .camper_name {
+      font-weight: 800; }
+
+/*# sourceMappingURL=style.css.map */

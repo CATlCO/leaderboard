@@ -1,0 +1,115 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900);
+
+$grad: linear-gradient(to left, #283048 , #859398); 
+$bg: white;
+$blue: #2A324A;
+
+*{
+	box-sizing: border-box;
+}
+
+body{
+	background: $grad;
+	font-family: 'Raleway';
+	color: $blue;
+}
+.board{
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+h1{
+	background: white;
+	color: black;
+	font-weight: 900;
+	font-size: 50px;
+	text-shadow: 
+		1px 1px 0px $bg,
+    1px -1px 0px $bg,
+    -1px -1px 0px $bg,
+    -1px 1px 0px $bg;
+	text-align: center;
+	position: relative;
+	margin-bottom: 30px;
+
+	&::before,
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+  }
+  
+  &::before {
+    background: $grad;
+    content: '';
+    display: block;
+    mix-blend-mode: screen;
+  }
+  
+  &::after {
+    content: 'FCC Leaderboard';
+    background: $bg;
+    color: white;
+    mix-blend-mode: multiply;
+  }
+}
+
+.top{
+
+	&_el{
+		color: white;
+		display: inline-block;
+		width: 33.33%;
+		text-align: center;
+		text-transform: uppercase;
+		font-weight: 600;
+		font-size: 20px;
+		margin-bottom: 30px;
+	}
+
+	&_link{
+		cursor: pointer;
+	}
+}
+
+.camper{
+	display: block;
+	background-color: rgba(255, 255, 255, 0.8);
+	padding: 20px;
+	margin-bottom: 50px;
+	position: relative;
+	cursor: pointer;
+	transition: all .3s ease;
+	color: $blue;
+
+	&_pic{
+		width: 100px;
+		border-radius: 50%;
+		position: absolute;
+		left: 20px;
+		top: -20px;
+	}
+
+	&_name, &_rank{
+		display: inline-block;
+		width: 33.33%;
+		font-size: 18px;
+		text-align: center;
+	}
+
+	&_name{
+		padding-left: 150px;
+		text-align: left;
+	}
+
+	&:hover{
+		background-color: rgba(255, 255, 255, 1);
+
+		.camper_name{
+			font-weight: 800;
+		}
+	}
+}
