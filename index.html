@@ -35,10 +35,13 @@
 
         componentDidMount: function() {
           this.loadFromServer("recent");
+          $(".top_recent").addClass("active");
         },
 
         handleClick: function(rank){
           this.loadFromServer(rank);
+          $(".top_link").removeClass("active");
+          $(".top_" + rank).addClass("active");
         },
 
         render: function() {
@@ -47,8 +50,8 @@
               <h1>FCC Leaderboard</h1>
               <div className="top">
                 <span className="top_el">User</span>
-                <span className="top_el top_link" onClick={ this.handleClick.bind(this, "recent") }>Recent points</span>
-                <span className="top_el top_link" onClick={ this.handleClick.bind(this, "alltime") }>All time points</span>
+                <span className="top_el top_link top_recent" onClick={ this.handleClick.bind(this, "recent") }>Recent points</span>
+                <span className="top_el top_link top_alltime" onClick={ this.handleClick.bind(this, "alltime") }>All time points</span>
               </div>
               <CamperList data={this.state.data} />
             </div>

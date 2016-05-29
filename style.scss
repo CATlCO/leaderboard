@@ -75,6 +75,14 @@ h1{
 	}
 }
 
+.active{
+
+	&::after{
+		content: '\2193';
+		margin-left: 5px;
+	}
+}
+
 .camper{
 	display: block;
 	background-color: rgba(255, 255, 255, 0.8);
