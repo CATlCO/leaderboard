@@ -16,12 +16,12 @@
       var Board = React.createClass({
 
         getInitialState: function() {
-          return {data: [], rank: 'recent'};
+          return {data: []};
         },
 
-        componentDidMount: function() {
-          this.serverRequest = $.ajax({
-            url: "https://fcctop100.herokuapp.com/api/fccusers/top/" + this.state.rank,
+        loadFromServer: function(rank){
+          $.ajax({
+            url: "https://fcctop100.herokuapp.com/api/fccusers/top/" + rank,
             dataType: 'json',
             cache: false,
             success: function(data) {
@@ -33,16 +33,12 @@
           });
         },
 
-        componentWillUnmount: function() {
-          this.serverRequest.abort();
+        componentDidMount: function() {
+          this.loadFromServer("recent");
         },
 
-        handleAlltime: function(){
-          this.setState({rank: "alltime"}, this.componentDidMount());
-        },
-
-        handleRecent: function(){
-          this.setState({rank: "recent"}, this.componentDidMount());
+        handleClick: function(rank){
+          this.loadFromServer(rank);
         },
 
         render: function() {
@@ -51,8 +47,8 @@
               <h1>FCC Leaderboard</h1>
               <div className="top">
                 <span className="top_el">User</span>
-                <span className="top_el top_link" onClick={this.handleRecent}>Recent points</span>
-                <span className="top_el top_link" onClick={this.handleAlltime}>All time points</span>
+                <span className="top_el top_link" onClick={ this.handleClick.bind(this, "recent") }>Recent points</span>
+                <span className="top_el top_link" onClick={ this.handleClick.bind(this, "alltime") }>All time points</span>
               </div>
               <CamperList data={this.state.data} />
             </div>
